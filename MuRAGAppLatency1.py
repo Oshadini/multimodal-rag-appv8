@@ -309,7 +309,7 @@ if uploaded_file is not None:
     else:
         img_base64_list = st.session_state["img_base64_list"]  
         image_summaries = st.session_state["image_summaries"]  
-        st.write(image_summaries)
+        #st.write(image_summaries)
     
 
 
