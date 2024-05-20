@@ -568,8 +568,9 @@ if uploaded_file is not None:
     # Create Streamlit buttons with associated actions
     col1, col2 = st.columns([1, 1])
     output_container = st.container()
-    with col1:
-        if st.button("Detailed Response"): #if(question):
+    if st.button("Detailed Response"):
+        with col1:
+            #if st.button("Detailed Response"): #if(question):
             with output_container:
                 vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
                 retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
@@ -602,10 +603,10 @@ if uploaded_file is not None:
                       break
                 client.delete_collection("mm_rag_mistral04")
                 
-        
-        
-    with col2:
-        if st.button('Briefed Response'):
+            
+    elif st.button('Briefed Response'):   
+        with col2:
+            #if st.button('Briefed Response'):
             with output_container:
                 vectorstore = Chroma(collection_name="mm_rag_mistral05",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
                 retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
@@ -616,8 +617,8 @@ if uploaded_file is not None:
                 #st.write("Processed Documents:", processed_docs)
                 response= chain_multimodal_rag2.invoke(question)
                 st.write(response)
-        
-        
+
+    
                 
                 found_image = False  # Flag variable to track if an image has been found
             
