@@ -568,9 +568,9 @@ if uploaded_file is not None:
     # Create Streamlit buttons with associated actions
     col1, col2 = st.columns([1, 1])
     output_container = st.container()
-    if st.button("Detailed Response"):
-        with col1:
-            #if st.button("Detailed Response"): #if(question):
+   
+    with col1:
+        if st.button("Detailed Response"): #if(question):
             with output_container:
                 vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
                 retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
@@ -604,11 +604,11 @@ if uploaded_file is not None:
                 client.delete_collection("mm_rag_mistral04")
                 
             
-    elif st.button('Briefed Response'):   
-        with col2:
-            #if st.button('Briefed Response'):
+    
+    with col2:
+        if st.button('Briefed Response'):
             with output_container:
-                vectorstore = Chroma(collection_name="mm_rag_mistral05",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
+                vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
                 retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
                 chain_multimodal_rag2 = multi_modal_rag_chain2(retriever_multi_vector_img)
                 docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
@@ -638,7 +638,7 @@ if uploaded_file is not None:
                       found_image = True  # Set the flag to True to indicate that an image has been found
                       
                       break
-                  client.delete_collection("mm_rag_mistral05") 
+                  client.delete_collection("mm_rag_mistral04") 
         
           
         
