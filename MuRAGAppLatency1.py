@@ -468,7 +468,7 @@ if uploaded_file is not None:
               "You will be given a mixed of text, tables, and image(s) usually of charts or graphs.\n"
               "Use this information to provide answers related to the user question. \n"
               "Final answer should be easily readable and structured. \n"
-              "Final answer should be summarized to 50 words. \n"
+              "Final answer should be summarized to 10 words. \n"
               f"User-provided question: {data_dict['question']}\n\n"
               "Text and / or tables:\n"
               f"{formatted_texts}"
