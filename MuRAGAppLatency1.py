@@ -303,7 +303,7 @@ if uploaded_file is not None:
 
         st.session_state["img_base64_list"] = img_base64_list
         st.session_state["image_summaries"] = image_summaries
-        st.write(image_summaries)
+        #st.write(image_summaries)
         st.write(f"{bullet_point} \t\tImage summaries generation completed")
 
     else:
