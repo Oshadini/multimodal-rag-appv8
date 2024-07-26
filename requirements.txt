@@ -1,4 +1,4 @@
-streamlit == 1.11
+streamlit
 unstructured[all-docs]
 langchain 
 pydantic 
