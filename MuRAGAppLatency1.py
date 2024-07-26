@@ -570,85 +570,43 @@ if uploaded_file is not None:
     col1, col2 = st.columns([1, 1])
     output_container = st.container()
    
-    with col1:
-        if st.button("Detailed Response"): #if(question):
-            with output_container:
-                vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
-                retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
-                chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
-                docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
-                #st.write(docs)
-                processed_docs = split_image_text_types(docs)
-                #st.write("Processed Documents:", processed_docs)
-                response= chain_multimodal_rag.invoke(question)
-                st.write(response)
-        
-        
-                
-                found_image = False  # Flag variable to track if an image has been found
-            
-                for i in range(min(2, len(docs))):
-                  if docs[i].startswith('/9j') and not found_image:
-                      #display.display(HTML(f'<img src="data:image/jpeg;base64,{docs[i]}">'))
-            
-                      base64_image = docs[i]
-                      image_data = base64.b64decode(base64_image)
-            
-                      # Display the image
-                      #img = Image.open(BytesIO(image_data))
-                      #img.show()
-                      #img = load_image(image_data)
-                      st.image(image_data)
-                      
-                      found_image = True  # Set the flag to True to indicate that an image has been found
-                      break
-                client.delete_collection("mm_rag_mistral04")
-                
-            
-    
-    with col2:
-        if st.button('Briefed Response'):
-            with output_container:
-                vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
-                retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
-                chain_multimodal_rag2 = multi_modal_rag_chain2(retriever_multi_vector_img)
-                docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
-                #st.write(docs)
-                processed_docs = split_image_text_types(docs)
-                #st.write("Processed Documents:", processed_docs)
-                response= chain_multimodal_rag2.invoke(question)
-                st.write(response)
+
+    vectorstore = Chroma(collection_name="mm_rag_mistral04",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
+    retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
+    chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
+    docs = retriever_multi_vector_img.get_relevant_documents(question, limit=1)
+    #st.write(docs)
+    processed_docs = split_image_text_types(docs)
+    #st.write("Processed Documents:", processed_docs)
+    response= chain_multimodal_rag.invoke(question)
+    st.write(response)
+
 
     
-                
-                found_image = False  # Flag variable to track if an image has been found
-            
-                for i in range(min(2, len(docs))):
-                  if docs[i].startswith('/9j') and not found_image:
-                      #display.display(HTML(f'<img src="data:image/jpeg;base64,{docs[i]}">'))
-            
-                      base64_image = docs[i]
-                      image_data = base64.b64decode(base64_image)
-            
-                      # Display the image
-                      #img = Image.open(BytesIO(image_data))
-                      #img.show()
-                      #img = load_image(image_data)
-                      st.image(image_data)
-                      
-                      found_image = True  # Set the flag to True to indicate that an image has been found
-                      
-                      break
-                  #client.delete_collection("mm_rag_mistral04") 
-        
+    found_image = False  # Flag variable to track if an image has been found
+
+    for i in range(min(2, len(docs))):
+      if docs[i].startswith('/9j') and not found_image:
+          #display.display(HTML(f'<img src="data:image/jpeg;base64,{docs[i]}">'))
+
+          base64_image = docs[i]
+          image_data = base64.b64decode(base64_image)
+
+          # Display the image
+          #img = Image.open(BytesIO(image_data))
+          #img.show()
+          #img = load_image(image_data)
+          st.image(image_data)
           
-        
-                #os.remove("./temp2.pdf")
-        #os.remove("./temp2.pdf")
+          found_image = True  # Set the flag to True to indicate that an image has been found
+          break
+    client.delete_collection("mm_rag_mistral04")
+                
+            
+    
 
+      
+          
 
-else:
-    # st.write(f"{bullet_point} Extraction already done") 
-    uploaded_file = st.session_state["file"]   
             
             
