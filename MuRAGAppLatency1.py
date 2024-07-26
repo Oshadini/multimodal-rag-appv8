@@ -99,6 +99,7 @@ uploaded_file = st.file_uploader(label = "Upload your file",type="pdf")
 bullet_point = "◇"
 
 if uploaded_file is not None:
+    st.session_state["file"] = uploaded_file
     if "pdf_elements" not in st.session_state:
         st.title("Extraction process:-")
         st.write(f"{bullet_point} Extraction process started")
@@ -644,5 +645,10 @@ if uploaded_file is not None:
         
                 #os.remove("./temp2.pdf")
         #os.remove("./temp2.pdf")
+
+
+else:
+    # st.write(f"{bullet_point} Extraction already done") 
+    uploaded_file = st.session_state["file"]   
             
             
